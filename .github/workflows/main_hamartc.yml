@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -21,13 +23,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build project
+      - name: Build project (creates dist)
         run: npm run build
 
-      - name: Verify dist exists
-        run: ls -R dist
+      - name: Verify dist folder exists
+        run: ls -la dist
 
-      - name: Upload artifact
+      - name: Upload dist artifact
         uses: actions/upload-artifact@v4
         with:
           name: dist
@@ -36,6 +38,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
       - name: Download artifact
@@ -55,4 +60,5 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'HaMartC'
+          slot-name: 'Production'
           package: dist
