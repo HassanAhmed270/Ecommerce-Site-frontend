@@ -1,5 +1,5 @@
 import ProductCard from '../components/ProductCard';
-import FilterSideBar from '../components/FilterSIdeBar';
+import FilterSideBar from '../components/FilterSideBar';
 import LoaderScreen from '../components/LoaderScreen';
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
