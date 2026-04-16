@@ -61,4 +61,4 @@ jobs:
         with:
           app-name: 'HaMartC'
           slot-name: 'Production'
-          package: dist
+          package: dist/
