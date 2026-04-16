@@ -21,10 +21,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build project
+      - name: Build Vite app
         run: npm run build
 
-      # Upload dist folder
+      # 🔥 ONLY DIST SHOULD BE DEPLOYED
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -42,13 +42,17 @@ jobs:
           name: dist
           path: dist
 
-      # ❌ REMOVED azure/login@v2 (fixes your error)
+      # ✅ USE YOUR EXISTING SECRETS (correct)
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_DD4E2A203BF6403E8D40610BCC6C2686 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9A9570BC758C4E598E3E3DAA6BAB1D55 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_C63B43DC24EF48DE9F4DC1416AD87267 }}
 
-      # ✅ Deploy using Publish Profile (.xml secret)
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'HaMartC'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: dist
