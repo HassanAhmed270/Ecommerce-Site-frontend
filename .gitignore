@@ -31,3 +31,8 @@ Thumbs.db
 
 # Optional
 coverage/
+
+node_modules
+build
+dist
+.env
