@@ -10,10 +10,16 @@ const VerifyEmail = () => {
   const [loading, setLoading] = useState(true);
   const [success, setSuccess] = useState(false);
 
-  const verifyEmail = async () => {
+   const verifyEmail = async () => {
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/user/verify/${token}`
+        `${import.meta.env.VITE_API_URL}/user/verify`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       );
 
       if (res.data.success) {
@@ -34,6 +40,7 @@ const VerifyEmail = () => {
       setLoading(false);
     }
   };
+
 
   useEffect(() => {
     verifyEmail();
