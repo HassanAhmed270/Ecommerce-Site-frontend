@@ -13,13 +13,7 @@ const VerifyEmail = () => {
   const verifyEmail = async () => {
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/user/verify`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+        `${import.meta.env.VITE_API_URL}/user/verify/${token}`
       );
 
       if (res.data.success) {
